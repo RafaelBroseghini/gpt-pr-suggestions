@@ -1,0 +1,29 @@
+name: 'ChatGPT Pull Request Suggestions'
+description: 'Tool to suggest improvements to Pull Request changed files.'
+
+inputs:
+  token:
+    description: 'GitHub token.'
+    required: true
+  open-ai-key:
+    description: 'OpenAI API key.'
+    required: true
+  open-ai-model:
+    description: 'OpenAI model to use.'
+    required: false
+    default: 'gpt-3.5-turbo'
+  ignored-file-extensions:
+    description: 'File extensions to skip.'
+    type: string
+    required: false
+    default: ".md,.txt,.csv"
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.token }}
+    - ${{ inputs.open-ai-key }}
+    - ${{ inputs.open-ai-model }}
+    - ${{ inputs.ignored-file-extensions }}
+
